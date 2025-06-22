@@ -96,6 +96,8 @@ SAM performs segmentation using visual prompts (e.g., bounding boxes). It produc
 **Explanation & Role:**  
 The autoencoder is responsible for restoring occluded or missing pixel regions in segmented objects. It compresses image information, learns semantic and structural features, and reconstructs the missing parts. It brings continuity and completeness to partially visible data.
 
+![image_alt](architecture/autoencoder.jpg)
+
 **Architecture:**
 - `Encoder`: Multiple convolutional layers with ReLU to downsample input.
 - `Bottleneck`: Fully Connected MLP that encodes image semantics.
