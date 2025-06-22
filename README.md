@@ -18,6 +18,8 @@
 At its core, the project leverages a convolutional autoencoder to predict and restore missing pixel regions, supported by a YOLO-based detection system and transformer-based segmentation model. High-fidelity detail is preserved and enhanced using Real-ESRGAN for super-resolution, while the final stage transforms 2D predictions into structured 3D mesh representations using Instant Meshes.<br>
 Implemented in PyTorch, this pipeline is built to handle challenging occlusion scenarios in real-world images—bridging the gap between 2D perception and 3D spatial understanding.
 
+![image_alt](architecture/pipeline.png)
+
 ---
 
 ## Motivation & Applications
