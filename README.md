@@ -14,8 +14,8 @@
 
 ## Introduction
 
-**"Restoring Occluded Objects: From Detection to 3D Reconstruction"** is a deep learning-based vision pipeline designed to detect, reconstruct, and reimagine occluded regions in RGB images. This multi-stage system integrates object detection, segmentation, inpainting, super-resolution, and 3D mesh generation into a unified framework.//
-At its core, the project leverages a convolutional autoencoder to predict and restore missing pixel regions, supported by a YOLO-based detection system and transformer-based segmentation model. High-fidelity detail is preserved and enhanced using Real-ESRGAN for super-resolution, while the final stage transforms 2D predictions into structured 3D mesh representations using Instant Meshes.//
+**Restoring Occluded Objects: From Detection to 3D Reconstruction** is a deep learning-based vision pipeline designed to detect, reconstruct, and reimagine occluded regions in RGB images. This multi-stage system integrates object detection, segmentation, inpainting, super-resolution, and 3D mesh generation into a unified framework.<br>
+At its core, the project leverages a convolutional autoencoder to predict and restore missing pixel regions, supported by a YOLO-based detection system and transformer-based segmentation model. High-fidelity detail is preserved and enhanced using Real-ESRGAN for super-resolution, while the final stage transforms 2D predictions into structured 3D mesh representations using Instant Meshes.<br>
 Implemented in PyTorch, this pipeline is built to handle challenging occlusion scenarios in real-world images—bridging the gap between 2D perception and 3D spatial understanding.
 
 ---
@@ -53,83 +53,79 @@ Imagine AR characters hiding behind real furniture, robots identifying partially
 ## Architectural Details
 
 ### 1. YOLOv11s (You Only Look Once)
-
-**Explanation & Role:**  
-YOLOv11s detects objects by generating bounding boxes. It’s fast and accurate—ideal for real-time inference. It initiates the pipeline by locating occluded object regions.
+YOLOv11s is responsible for detecting objects within an image by producing bounding boxes around them. It is chosen for its excellent trade-off between inference speed and accuracy, making it suitable for real-time applications. It initiates the pipeline by locating regions of interest (occluded objects) that other components will process further.
 
 **Architecture:**
-- Backbone: CNN for feature extraction
-- Neck: Feature Pyramid Network (FPN)
-- Head: Outputs boxes, confidence, class labels
+- Backbone: Lightweight CNN for fast feature extraction.
+- Neck: Feature Pyramid Network (FPN) to fuse multi-scale features.
+- Head: Predicts bounding boxes, confidence scores, and class labels.
 
 **Activation Functions:**
-- `SiLU`: Efficient for deep CNNs
-- `Sigmoid`: For object confidence scaling
+- `SiLU`: Smooth and self-regularizing, improves learning in convolutional layers.
+- `Sigmoid`: Used at the output layer to constrain confidence scores between 0 and 1.
 
 **Loss Functions:**
-- `λ_box`: Bounding box regression
-- `λ_obj`: Objectness confidence
-- `λ_cls`: Classification accuracy
+- `λ_box`:  Measures bounding box regression error.
+- `λ_obj`: Penalizes false positives/negatives.
+- `λ_cls`: Optimizes class label predictions.
 
 ---
 
 ### 2. SAM (Segment Anything Model)
 
 **Explanation & Role:**  
-SAM segments the regions identified by YOLO using bounding box prompts. It provides pixel-level binary masks.
+SAM performs segmentation using visual prompts (e.g., bounding boxes). It produces detailed masks corresponding to detected objects and is known for being general-purpose and highly accurate even with minimal tuning. It bridges detection and inpainting by localizing the object region pixel-wise.
 
 **Architecture:**
-- ViT Encoder: Hierarchical feature extraction
-- Prompt Encoder: Box or point prompts
-- Mask Decoder: High-res binary masks
+- Vision Transformer (ViT) Encoder: extracts hierarchical image features.
+- Prompt Encoder: encodes user-provided prompts like bounding boxes.
+- Mask Decoder: generates high-resolution binary masks per object.
 
 **Activation Functions:**
-- `SiLU`: Used in transformer layers
+- `SiLU`: Used throughout transformer layers for smooth, non-linear transformation.
 
 **Loss Functions:**
-- `Binary Cross Entropy (BCE)`
-- `Dice Loss`
-- `IoU Loss`
+- Binary Cross Entropy (BCE): For accurate binary mask prediction.
+- Dice Loss: Ensures accurate segmentation especially on small/imbalanced regions.
+- IoU Loss: Optimizes overlap between predicted and ground-truth masks.
 
 ---
 
 ### 3. Convolutional Autoencoder
 
 **Explanation & Role:**  
-Fills in the occluded parts using learned features. It compresses, understands, and reconstructs the missing regions.
+The autoencoder is responsible for restoring occluded or missing pixel regions in segmented objects. It compresses image information, learns semantic and structural features, and reconstructs the missing parts. It brings continuity and completeness to partially visible data.
 
 **Architecture:**
-- Encoder: Convolutional layers with `ReLU`
-- Bottleneck: Fully connected MLP
-- Decoder: Transposed Conv layers
+- Encoder: Multiple convolutional layers with ReLU to downsample input.
+- Bottleneck: Fully Connected MLP that encodes image semantics.
+- Decoder: Transposed Convolution layers to upsample and reconstruct image
 
 **Activation Functions:**
-- `ReLU`: Non-linear feature learning
-- `Sigmoid`: Pixel range normalization
+- ReLU: Promotes efficient feature learning and avoids vanishing gradients.
+- Sigmoid: Used in output layer to scale pixel values between 0 and 1.
 
 **Loss Functions:**
-- `Mean Squared Error (MSE)`: Best for reconstruction accuracy
-
+- Mean Squared Error (MSE): Measures pixel-wise deviation between original and reconstructed images. Preferred for regression-based reconstruction tasks.
 ---
 
 ### 4. Real-ESRGAN
 
 **Explanation & Role:**  
-Performs perceptual and pixel-level super-resolution before and after inpainting.
+Real-ESRGAN performs image super-resolution, improving the perceptual quality of both segmented and inpainted images. It is applied both before and after inpainting to maximize visual fidelity and clarity.
 
 **Architecture:**
-- Generator: Residual-in-Residual Dense Blocks
-- Discriminator: GAN-based classifier
+Generator: Residual-in-Residual Dense Blocks with ReLU/Leaky ReLU.
+Discriminator: GAN-based network that distinguishes real vs. generated images.
 
 **Activation Functions:**
-- `ReLU / Leaky ReLU`: Sharpens image features
-- `Sigmoid`: Scales output pixels
+ReLU / Leaky ReLU: Supports stable learning and sharp reconstruction.
+Sigmoid: Ensures final pixel values are normalized.
 
 **Loss Functions:**
-- `Adversarial Loss`: Realism via discriminator
-- `Perceptual Loss`: Feature-based accuracy
-- `Pixel Loss (MSE/L1)`: Base fidelity retention
-
+- Adversarial Loss: Helps generate realistic image textures.
+- Perceptual Loss: Uses pre-trained deep features to capture image semantics.
+- Pixel Loss (MSE/L1): Ensures fidelity to original low-resolution image during enhancement.
 ---
 
 ## Workflow Pipeline
@@ -173,13 +169,29 @@ Ideal for simulation, animation, and AR applications.
 - Python, PyTorch, OpenCV, PIL
 - Ultralytics YOLO, Segment Anything, Real-ESRGAN
 - Kaggle/Jupyter Environment
-
+- 
 ---
 
-## Contributing
-Pull requests and feedback are welcome. Let’s make machines see through occlusions together.
+## Future Work
+
+- Integrate monocular depth estimation to improve 3D reconstruction from a single image.
+- Explore transformer-based or diffusion-based inpainting models for better context modeling.
+- Extend the pipeline to real-time inference for deployment on edge devices.
+- Benchmark the pipeline on diverse, real-world datasets beyond synthetic occlusions.
+- Fuse LiDAR or multi-view data to enhance spatial accuracy in the reconstruction stage.
+
+## Acknowledgements
+
+This project was developed as part of the **CS299: Advanced Machine Learning** course at the **Indian Institute of Technology Gandhinagar (IITGN)**.
+We would like to thank **Prof. Shanmuganathan Raman** and **Soumyaratna Debnat** for their continuous mentorship and valuable feedback throughout the course of this work.
+
+## References
+
+- [YOLO by Ultralytics](https://github.com/ultralytics/ultralytics) – Object Detection  
+- [Segment Anything (SAM) by Meta AI](https://github.com/facebookresearch/segment-anything) – Segmentation  
+- [Real-ESRGAN](https://github.com/xinntao/Real-ESRGAN) – Super-Resolution  
+- [Instant Meshes](https://github.com/wjakob/instant-meshes) – Mesh Quadrangulation  
+- [UOAIS Dataset](https://github.com/gist-ailab/uoais) – Amodal Segmentation Dataset  
+- [PyTorch](https://pytorch.org/) – Deep Learning Framework  
 
 ---
-
-## License
-This project is under the MIT License.
