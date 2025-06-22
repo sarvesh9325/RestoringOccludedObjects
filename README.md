@@ -56,9 +56,9 @@ Imagine AR characters hiding behind real furniture, robots identifying partially
 YOLOv11s is responsible for detecting objects within an image by producing bounding boxes around them. It is chosen for its excellent trade-off between inference speed and accuracy, making it suitable for real-time applications. It initiates the pipeline by locating regions of interest (occluded objects) that other components will process further.
 
 **Architecture:**
-- Backbone: Lightweight CNN for fast feature extraction.
-- Neck: Feature Pyramid Network (FPN) to fuse multi-scale features.
-- Head: Predicts bounding boxes, confidence scores, and class labels.
+- `Backbone`: Lightweight CNN for fast feature extraction.
+- `Neck`: Feature Pyramid Network (FPN) to fuse multi-scale features.
+- `Head`: Predicts bounding boxes, confidence scores, and class labels.
 
 **Activation Functions:**
 - `SiLU`: Smooth and self-regularizing, improves learning in convolutional layers.
@@ -77,17 +77,17 @@ YOLOv11s is responsible for detecting objects within an image by producing bound
 SAM performs segmentation using visual prompts (e.g., bounding boxes). It produces detailed masks corresponding to detected objects and is known for being general-purpose and highly accurate even with minimal tuning. It bridges detection and inpainting by localizing the object region pixel-wise.
 
 **Architecture:**
-- Vision Transformer (ViT) Encoder: extracts hierarchical image features.
-- Prompt Encoder: encodes user-provided prompts like bounding boxes.
-- Mask Decoder: generates high-resolution binary masks per object.
+- `Vision Transformer (ViT) Encoder`: extracts hierarchical image features.
+- `Prompt Encoder`: encodes user-provided prompts like bounding boxes.
+- `Mask Decoder`: generates high-resolution binary masks per object.
 
 **Activation Functions:**
 - `SiLU`: Used throughout transformer layers for smooth, non-linear transformation.
 
 **Loss Functions:**
-- Binary Cross Entropy (BCE): For accurate binary mask prediction.
-- Dice Loss: Ensures accurate segmentation especially on small/imbalanced regions.
-- IoU Loss: Optimizes overlap between predicted and ground-truth masks.
+- `Binary Cross Entropy (BCE)`: For accurate binary mask prediction.
+- `Dice Loss`: Ensures accurate segmentation especially on small/imbalanced regions.
+- `IoU Loss`: Optimizes overlap between predicted and ground-truth masks.
 
 ---
 
@@ -97,16 +97,16 @@ SAM performs segmentation using visual prompts (e.g., bounding boxes). It produc
 The autoencoder is responsible for restoring occluded or missing pixel regions in segmented objects. It compresses image information, learns semantic and structural features, and reconstructs the missing parts. It brings continuity and completeness to partially visible data.
 
 **Architecture:**
-- Encoder: Multiple convolutional layers with ReLU to downsample input.
-- Bottleneck: Fully Connected MLP that encodes image semantics.
-- Decoder: Transposed Convolution layers to upsample and reconstruct image
+- `Encoder`: Multiple convolutional layers with ReLU to downsample input.
+- `Bottleneck`: Fully Connected MLP that encodes image semantics.
+- `Decoder`: Transposed Convolution layers to upsample and reconstruct image
 
 **Activation Functions:**
-- ReLU: Promotes efficient feature learning and avoids vanishing gradients.
-- Sigmoid: Used in output layer to scale pixel values between 0 and 1.
+- `ReLU`: Promotes efficient feature learning and avoids vanishing gradients.
+- `Sigmoid`: Used in output layer to scale pixel values between 0 and 1.
 
 **Loss Functions:**
-- Mean Squared Error (MSE): Measures pixel-wise deviation between original and reconstructed images. Preferred for regression-based reconstruction tasks.
+- `Mean Squared Error (MSE)`: Measures pixel-wise deviation between original and reconstructed images. Preferred for regression-based reconstruction tasks.
 ---
 
 ### 4. Real-ESRGAN
@@ -115,17 +115,17 @@ The autoencoder is responsible for restoring occluded or missing pixel regions i
 Real-ESRGAN performs image super-resolution, improving the perceptual quality of both segmented and inpainted images. It is applied both before and after inpainting to maximize visual fidelity and clarity.
 
 **Architecture:**
-Generator: Residual-in-Residual Dense Blocks with ReLU/Leaky ReLU.
-Discriminator: GAN-based network that distinguishes real vs. generated images.
+- `Generator`: Residual-in-Residual Dense Blocks with ReLU/Leaky ReLU.
+- `Discriminator`: GAN-based network that distinguishes real vs. generated images.
 
 **Activation Functions:**
-ReLU / Leaky ReLU: Supports stable learning and sharp reconstruction.
-Sigmoid: Ensures final pixel values are normalized.
+- `ReLU / Leaky ReLU`: Supports stable learning and sharp reconstruction.
+- `Sigmoid`: Ensures final pixel values are normalized.
 
 **Loss Functions:**
-- Adversarial Loss: Helps generate realistic image textures.
-- Perceptual Loss: Uses pre-trained deep features to capture image semantics.
-- Pixel Loss (MSE/L1): Ensures fidelity to original low-resolution image during enhancement.
+- `Adversarial Loss`: Helps generate realistic image textures.
+- `Perceptual Loss`: Uses pre-trained deep features to capture image semantics.
+- `Pixel Loss (MSE/L1)`: Ensures fidelity to original low-resolution image during enhancement.
 ---
 
 ## Workflow Pipeline
