@@ -21,11 +21,12 @@ This project implements a deep learning-based vision pipeline titled **"Restorin
 Imagine AR characters hiding behind real furniture, robots identifying partially hidden objects, or 3D sports analytics in occluded scenarios. This project enables machines to perceive occluded objects with human-like understanding.
 
 ### Applications:
-- Augmented/Virtual Reality
-- Robotics Navigation
-- Disaster Recovery
-- Factory Automation
-- 3D Reconstruction
+- Surveillance and security in crowded scenes  
+- Safer indoor navigation for robots  
+- Autonomous driving under occlusion  
+- Enhanced AR/VR immersion  
+- Sports analytics for occluded athletes  
+- Sorting occluded crops and clutter navigation  
 
 ---
 
