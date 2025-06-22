@@ -57,6 +57,8 @@ Imagine AR characters hiding behind real furniture, robots identifying partially
 ### 1. YOLOv11s (You Only Look Once)
 YOLOv11s is responsible for detecting objects within an image by producing bounding boxes around them. It is chosen for its excellent trade-off between inference speed and accuracy, making it suitable for real-time applications. It initiates the pipeline by locating regions of interest (occluded objects) that other components will process further.
 
+![image_alt](output/detected.jpg)
+
 **Architecture:**
 - `Backbone`: Lightweight CNN for fast feature extraction.
 - `Neck`: Feature Pyramid Network (FPN) to fuse multi-scale features.
@@ -84,6 +86,7 @@ SAM performs segmentation using visual prompts (e.g., bounding boxes). It produc
 - `Vision Transformer (ViT) Encoder`: extracts hierarchical image features.
 - `Prompt Encoder`: encodes user-provided prompts like bounding boxes.
 - `Mask Decoder`: generates high-resolution binary masks per object.
+
 
 **Activation Functions:**
 - `SiLU`: Used throughout transformer layers for smooth, non-linear transformation.
@@ -120,6 +123,8 @@ The autoencoder is responsible for restoring occluded or missing pixel regions i
 **Explanation & Role:**  
 Real-ESRGAN performs image super-resolution, improving the perceptual quality of both segmented and inpainted images. It is applied both before and after inpainting to maximize visual fidelity and clarity.
 
+![image_alt](output/superresoluted.png)
+
 **Architecture:**
 - `Generator`: Residual-in-Residual Dense Blocks with ReLU/Leaky ReLU.
 - `Discriminator`: GAN-based network that distinguishes real vs. generated images.
@@ -146,6 +151,8 @@ Real-ESRGAN performs image super-resolution, improving the perceptual quality of
 ---
 
 ## 3D Reconstruction and Mesh Remeshing
+
+![image+alt](output/3d.png)
 
 **Instant Meshes** transforms 2D output into quad-dominant 3D meshes:
 - Uses **directional & position fields**
