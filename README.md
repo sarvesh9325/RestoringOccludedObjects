@@ -76,6 +76,8 @@ YOLOv11s is responsible for detecting objects within an image by producing bound
 **Explanation & Role:**  
 SAM performs segmentation using visual prompts (e.g., bounding boxes). It produces detailed masks corresponding to detected objects and is known for being general-purpose and highly accurate even with minimal tuning. It bridges detection and inpainting by localizing the object region pixel-wise.
 
+![image_alt](architecture/sam.png)
+
 **Architecture:**
 - `Vision Transformer (ViT) Encoder`: extracts hierarchical image features.
 - `Prompt Encoder`: encodes user-provided prompts like bounding boxes.
