@@ -14,8 +14,8 @@
 
 ## Introduction
 
-**"Restoring Occluded Objects: From Detection to 3D Reconstruction"** is a deep learning-based vision pipeline designed to detect, reconstruct, and reimagine occluded regions in RGB images. This multi-stage system integrates object detection, segmentation, inpainting, super-resolution, and 3D mesh generation into a unified framework.
-At its core, the project leverages a convolutional autoencoder to predict and restore missing pixel regions, supported by a YOLO-based detection system and transformer-based segmentation model. High-fidelity detail is preserved and enhanced using Real-ESRGAN for super-resolution, while the final stage transforms 2D predictions into structured 3D mesh representations using Instant Meshes.
+**"Restoring Occluded Objects: From Detection to 3D Reconstruction"** is a deep learning-based vision pipeline designed to detect, reconstruct, and reimagine occluded regions in RGB images. This multi-stage system integrates object detection, segmentation, inpainting, super-resolution, and 3D mesh generation into a unified framework.//
+At its core, the project leverages a convolutional autoencoder to predict and restore missing pixel regions, supported by a YOLO-based detection system and transformer-based segmentation model. High-fidelity detail is preserved and enhanced using Real-ESRGAN for super-resolution, while the final stage transforms 2D predictions into structured 3D mesh representations using Instant Meshes.//
 Implemented in PyTorch, this pipeline is built to handle challenging occlusion scenarios in real-world images—bridging the gap between 2D perception and 3D spatial understanding.
 
 ---
