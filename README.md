@@ -152,7 +152,7 @@ Real-ESRGAN performs image super-resolution, improving the perceptual quality of
 
 ## 3D Reconstruction and Mesh Remeshing
 
-![image+alt](output/3d.png)
+![image+alt](sample outputs/3d.png)
 
 **Instant Meshes** transforms 2D output into quad-dominant 3D meshes:
 - Uses **directional & position fields**
