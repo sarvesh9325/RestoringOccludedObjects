@@ -195,7 +195,7 @@ Ideal for simulation, animation, and AR applications.
 
 ## Acknowledgements
 
-This project was developed as part of the **CS299: Advanced Machine Learning** course at the **Indian Institute of Technology Gandhinagar (IITGN)**.
+This project was developed as part of the **CS299: Project Course** course at the **Indian Institute of Technology Gandhinagar (IITGN)**.
 We would like to thank **Prof. Shanmuganathan Raman** and **Soumyaratna Debnat** for their continuous mentorship and valuable feedback throughout the course of this work.
 
 ## References
