@@ -9,7 +9,7 @@
 6. [Workflow Pipeline](#workflow-pipeline)
 7. [3D Reconstruction and Mesh Remeshing](#3d-reconstruction-and-mesh-remeshing)
 8. [Evaluation & Key Takeaways](#evaluation--key-takeaways)
-
+---
 ## Requirements
 - [LINK_TO_DOWNLOAD_PRE-TRAINED_MODELS](https://www.kaggle.com/datasets/sarveshchaudhari9325/cs299-pre-trained-models)
 
