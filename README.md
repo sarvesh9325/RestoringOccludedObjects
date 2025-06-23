@@ -73,6 +73,7 @@ YOLOv11s is responsible for detecting objects within an image by producing bound
 - `Sigmoid`: Used at the output layer to constrain confidence scores between 0 and 1.
 
 **Loss Functions:**
+![image_alt](lossfunction/yolov11s.png)
 - `λ_box`:  Measures bounding box regression error.
 - `λ_obj`: Penalizes false positives/negatives.
 - `λ_cls`: Optimizes class label predictions.
@@ -96,6 +97,7 @@ SAM performs segmentation using visual prompts (e.g., bounding boxes). It produc
 - `SiLU`: Used throughout transformer layers for smooth, non-linear transformation.
 
 **Loss Functions:**
+![image_alt](lossfunction/sam.png)
 - `Binary Cross Entropy (BCE)`: For accurate binary mask prediction.
 - `Dice Loss`: Ensures accurate segmentation especially on small/imbalanced regions.
 - `IoU Loss`: Optimizes overlap between predicted and ground-truth masks.
@@ -119,6 +121,7 @@ The autoencoder is responsible for restoring occluded or missing pixel regions i
 - `Sigmoid`: Used in output layer to scale pixel values between 0 and 1.
 
 **Loss Functions:**
+![image_alt](lossfunction/autoencoder.png)
 - `Mean Squared Error (MSE)`: Measures pixel-wise deviation between original and reconstructed images. Preferred for regression-based reconstruction tasks.
 ---
 
@@ -138,6 +141,7 @@ Real-ESRGAN performs image super-resolution, improving the perceptual quality of
 - `Sigmoid`: Ensures final pixel values are normalized.
 
 **Loss Functions:**
+![image_alt](lossfunction/real-esrgan.png)
 - `Adversarial Loss`: Helps generate realistic image textures.
 - `Perceptual Loss`: Uses pre-trained deep features to capture image semantics.
 - `Pixel Loss (MSE/L1)`: Ensures fidelity to original low-resolution image during enhancement.
@@ -171,6 +175,7 @@ Ideal for simulation, animation, and AR applications.
 
 ### Performance Metrics:
 - `YOLO`: mAP (mean Average Precision)
+![image_alt](metrics/yolometrics.png)
 - `Autoencoder`: PSNR, MSE
 - `Real-ESRGAN`: SSIM, perceptual fidelity
 
