@@ -41,7 +41,7 @@ Imagine AR characters hiding behind real furniture, robots identifying partially
 3. **Convolutional Autoencoder** – Pixel restoration/inpainting
 4. **Real-ESRGAN** – Super-resolution enhancement
 5. **Instant Meshes** – Mesh generation for 3D reconstruction
-
+-[LINK_TO_DOWNLOAD_PRE-TRAINED_MODELS](https://www.kaggle.com/datasets/sarveshchaudhari9325/cs299-pre-trained-models)
 ---
 
 ## Dataset Preparation
